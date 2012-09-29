@@ -8,30 +8,35 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    double alpha = 0.01;
-    int num_iters = 1500;
+    double alpha = 0.0001;
+    int num_iters = 1000;
     bool norm = false;
 
-    cout << "Linear Regression Test\n" << endl;
+    cout << "Logistic Regression Test" << endl << endl;
 
-    LinearRegression lr;
+    LogisticRegression lr;
     lr.read_training_data(argv[1]);
-//    lr.print_data();
+    lr.print_data();
+    cout << endl;
 
     lr.gradient_descent(alpha, num_iters, norm);
     lr.print_theta();
 
-    vector<double> X;
-    vector<double> theta = lr.get_theta();
 
+    vector<double> X;
     if(norm) {
         X.push_back(1650);
         X.push_back(3);
     }
     else {
-        X.push_back(3.5);
+        X.push_back(1);
+        X.push_back(34);
+        X.push_back(70);
     }
 
+    lr.classify(X);
+
+/*
     double result = theta[0];
     if(norm) {
         vector<double> mean = lr.get_mean();
@@ -41,12 +46,13 @@ int main(int argc, char *argv[]) {
         }
     }
     else {
+        double h = 0;
         for(unsigned int i = 0; i < X.size(); i++) {
             result += X[i] * theta[i + 1];
         }
     }
     cout << "Result: " << result << endl;
-
+*/
 
 /*
     LinearRegression lr(x, y, 11);  // create with two arrays

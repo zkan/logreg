@@ -1,10 +1,10 @@
 /*
-    Linear Regression with one or multiple variables
+    Logistic Regression with one or multiple variables
     Author: Kan Ouivirach
     Credit: David C. Swaim II, Ph.D.
 */
-#ifndef _LINREG_H_
-#define _LINREG_H_
+#ifndef _LOGREG_H_
+#define _LOGREG_H_
 
 #include <iostream>
 #include <fstream>
@@ -15,10 +15,10 @@
 
 using namespace std;
 
-class LinearRegression {
+class LogisticRegression {
     public:
-        LinearRegression();
-        ~LinearRegression();
+        LogisticRegression();
+        ~LogisticRegression();
 
         void read_training_data(char* file_data);
         void print_data();
@@ -27,8 +27,8 @@ class LinearRegression {
         vector<double> get_theta();
         vector<double> get_mean();
         vector<double> get_std();
-        void classify(vector< vector<double> > X);
-
+        void classify(vector<double> X);
+      
     private:
         vector< vector<double> > _data;
         vector<double> _mean;
@@ -40,9 +40,10 @@ class LinearRegression {
         vector<string> split(string str, string delimiters);
         double dot_product(vector<double> a, vector<double> b);
         void feature_normalize();
+        double sigmoid(double x);
         double compute_cost(vector< vector<double> > X, vector<double> y, vector<double> theta);
 };
 
 #endif
-// end of linreg.h
+// end of logreg.h
 
