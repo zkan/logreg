@@ -188,9 +188,34 @@ void LogisticRegression::gradient_descent(double alpha, int num_iters, bool norm
                                                                this->_theta) << endl
                                                                << endl;
 
+    /* --- Testing --- */
+    double grad = 0;
+    double error = 0;
+    double h = 0;
+    cout << "Gradient at initial theta (zeros): " << endl;
+    for(unsigned int i = 0; i < this->_theta.size(); i++) {
+        vector<double> diff;
+        vector<double> X_col;
+        for(unsigned int j = 0; j < this->_data.size(); j++) {
+            double val = dot_product(this->_data[j], this->_theta);
+            h = sigmoid(val);
+            diff.push_back(h - this->_predicted_data[j]);
+            X_col.push_back(this->_data[j][i]);
+        }
+        error = dot_product(diff, X_col);
+        grad = (1.0 / m) * error;
+        cout << grad << endl;
+    }
+    cout << endl;
+    /* --- end Testing --- */
+
     double J = 0;
     for(int iter = 0; iter < num_iters; iter++) {
         cout << "Iter " << iter + 1 << ": ";
+
+//    int iter = 1;
+//    while(true) {
+//        cout << "Iter " << iter << ": ";
 
         // then compute the error and update the theta
         double error = 0;
@@ -209,27 +234,25 @@ void LogisticRegression::gradient_descent(double alpha, int num_iters, bool norm
                 X_col.push_back(this->_data[j][i]);
             }
             error = dot_product(diff, X_col);
-            grad = alpha * (1.0 / m) * error;
+            grad = (1.0 / m) * error;
 
             // update the theta
-            this->_theta[i] = this->_theta[i] - grad;
+            this->_theta[i] = this->_theta[i] - alpha * grad;
         
-        }
-
-        if(iter == 0) {
-            cout << "Gradient at initial theta (zeros): " << endl;
-            for(unsigned k = 0; k < this->_theta.size(); k++) {
-                cout << grad << endl;
-            }
-            cout << endl;
         }
 
         J = compute_cost(this->_data, this->_predicted_data, this->_theta);
         cout << J << endl;
         J_history.push_back(J);
 
+        // delete below if change to for loop
+//        iter++;
+//        if(J <= 0.203498) {
+//            break;
+//        }
     }
     cout << endl;
+    cout << "Cost at theta found by gradient descent: " << J_history[J_history.size() - 1] << endl;
 }
 
 void LogisticRegression::classify(vector<double> X) {
@@ -245,7 +268,7 @@ void LogisticRegression::classify(vector<double> X) {
 }
 
 void LogisticRegression::print_theta() {
-    cout << "Theta:" << endl;
+    cout << "theta:" << endl;
     for(unsigned int i = 0; i < this->_theta.size(); i++) {
         cout << this->_theta[i] << endl;
     }

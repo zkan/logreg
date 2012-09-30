@@ -8,7 +8,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    double alpha = 0.0001;
+    double alpha = 0.001;
     int num_iters = 1000;
     bool norm = false;
 
@@ -30,8 +30,8 @@ int main(int argc, char *argv[]) {
     }
     else {
         X.push_back(1);
-        X.push_back(34);
-        X.push_back(70);
+        X.push_back(45);
+        X.push_back(85);
     }
 
     lr.classify(X);
