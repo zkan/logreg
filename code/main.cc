@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
     double alpha = 0.001;
-    int num_iters = 1000;
+    int num_iters = 1000000;
     bool norm = false;
 
     cout << "Logistic Regression Test" << endl << endl;
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     lr.gradient_descent(alpha, num_iters, norm);
     lr.print_theta();
 
-
+/*
     vector<double> X;
     if(norm) {
         X.push_back(1650);
@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
     }
 
     lr.classify(X);
+*/
+
 
 /*
     double result = theta[0];
